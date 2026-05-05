@@ -3,16 +3,17 @@
 class DeepObsidianMcp < Formula
   desc "Filesystem-first MCP server for deep Obsidian vault access"
   homepage "https://github.com/P4UL-M/deep-obsidian-mcp"
-  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.2.tar.gz"
-  sha256 "76de538c3cbe14e2f5e1511ca0440a9297a401613eb4e55d9ea5519e1088f064"
+  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.3.tar.gz"
+  sha256 "53116b2d6e4bcd77eeca0135f66c81fb4b122e767815ec1b6aaa12957a7e7076"
   license "MIT"
-  version "0.1.0-alpha.2"
+  version "0.1.0-alpha.3"
 
   depends_on "rust" => :build
   depends_on "ripgrep"
 
   def install
     system "cargo", "install", *std_cargo_args(path: "rust/crates/deep-obsidian-cli")
+    pkgshare.install "assets"
     pkgshare.install "skills"
     pkgshare.install "obsidian-snippets"
     (var/"log/deep-obsidian-mcp").mkpath
@@ -36,6 +37,9 @@ class DeepObsidianMcp < Formula
 
       Obsidian CSS snippets are installed under:
         #{opt_pkgshare}/obsidian-snippets
+
+      Project icons and logo assets are installed under:
+        #{opt_pkgshare}/assets
 
       setup-service --skills copies them into Codex and Claude Code skill directories.
       setup-service --mcp configures Codex and Claude Code MCP client entries.
