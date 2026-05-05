@@ -3,10 +3,10 @@
 class DeepObsidianMcp < Formula
   desc "Filesystem-first MCP server for deep Obsidian vault access"
   homepage "https://github.com/P4UL-M/deep-obsidian-mcp"
-  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.3.tar.gz"
-  sha256 "53116b2d6e4bcd77eeca0135f66c81fb4b122e767815ec1b6aaa12957a7e7076"
+  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.4.tar.gz"
+  sha256 "39b716c5446c6092c40f5fb8826245cf8b2a083f4045a67b014ecea7eeb6b1ad"
   license "MIT"
-  version "0.1.0-alpha.3"
+  version "0.1.0-alpha.4"
 
   depends_on "rust" => :build
   depends_on "ripgrep"
@@ -23,6 +23,11 @@ class DeepObsidianMcp < Formula
     <<~EOS
       Configure the service before starting it:
         deep-obsidian-mcp setup-service --vault ~/Vault --mcp --skills --vault-snippets
+
+      On macOS, setup-service performs an interactive vault access preflight.
+      If your vault is under Documents, Desktop, Downloads, or iCloud Drive, approve the
+      permission prompt if macOS shows one. If no prompt appears, add the Homebrew
+      service binary to Privacy & Security > Full Disk Access, then restart the service.
 
       Then start and validate:
         brew services start P4UL-M/tap/deep-obsidian-mcp
