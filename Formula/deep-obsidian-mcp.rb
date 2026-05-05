@@ -3,10 +3,10 @@
 class DeepObsidianMcp < Formula
   desc "Filesystem-first MCP server for deep Obsidian vault access"
   homepage "https://github.com/P4UL-M/deep-obsidian-mcp"
-  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.1.tar.gz"
-  sha256 "082c9a8eccaf2c72cb692cb94991c568e08bce971f3fb03c55a42e22a2b75d4e"
+  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.2.tar.gz"
+  sha256 "76de538c3cbe14e2f5e1511ca0440a9297a401613eb4e55d9ea5519e1088f064"
   license "MIT"
-  version "0.1.0-alpha.1"
+  version "0.1.0-alpha.2"
 
   depends_on "rust" => :build
   depends_on "ripgrep"
@@ -14,13 +14,14 @@ class DeepObsidianMcp < Formula
   def install
     system "cargo", "install", *std_cargo_args(path: "rust/crates/deep-obsidian-cli")
     pkgshare.install "skills"
+    pkgshare.install "obsidian-snippets"
     (var/"log/deep-obsidian-mcp").mkpath
   end
 
   def caveats
     <<~EOS
       Configure the service before starting it:
-        deep-obsidian-mcp setup-service --vault ~/Vault --mcp --skills
+        deep-obsidian-mcp setup-service --vault ~/Vault --mcp --skills --vault-snippets
 
       Then start and validate:
         brew services start P4UL-M/tap/deep-obsidian-mcp
@@ -33,8 +34,12 @@ class DeepObsidianMcp < Formula
       Agent skill templates are installed under:
         #{opt_pkgshare}/skills
 
+      Obsidian CSS snippets are installed under:
+        #{opt_pkgshare}/obsidian-snippets
+
       setup-service --skills copies them into Codex and Claude Code skill directories.
       setup-service --mcp configures Codex and Claude Code MCP client entries.
+      setup-service --vault-snippets copies packaged Obsidian snippets into the vault and enables them.
     EOS
   end
 
