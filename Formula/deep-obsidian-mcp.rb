@@ -3,8 +3,8 @@
 class DeepObsidianMcp < Formula
   desc "Filesystem-first MCP server for deep Obsidian vault access"
   homepage "https://github.com/P4UL-M/deep-obsidian-mcp"
-  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.7.tar.gz"
-  sha256 "283f623291a39fb433e27f127b36eda569a0f06110d4429c18706646927ecdfc"
+  url "https://github.com/P4UL-M/deep-obsidian-mcp/archive/refs/tags/v0.1.0-alpha.8.tar.gz"
+  sha256 "3d5b16eddbfdc3f554ab61d72a2ea5a639bed7169407d617eb114d378fe10a6e"
   license "MIT"
 
   depends_on "rust" => :build
@@ -54,7 +54,8 @@ class DeepObsidianMcp < Formula
   service do
     run [opt_bin/"deep-obsidian-mcp", "serve", "--packaged", "--transport", "http"]
     keep_alive true
-    environment_variables DEEP_OBSIDIAN_PACKAGED: "1"
+    environment_variables DEEP_OBSIDIAN_PACKAGED: "1",
+                          PATH: "#{HOMEBREW_PREFIX}/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     log_path var/"log/deep-obsidian-mcp/output.log"
     error_log_path var/"log/deep-obsidian-mcp/error.log"
   end
